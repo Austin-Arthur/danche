@@ -38,12 +38,12 @@ void Set_Data()
 }
 void Get_Data()
 {
-        Ang_Vel_PID.Kp = GetItemValue(Start_Order, Ang_vel_P_Order);
+        Ang_Vel_PID.Kp = GetItemValue(Start_Order, Ang_vel_P_Order);//365
         Ang_Vel_PID.Ki = 0;
         Ang_Vel_PID.Kd = 0;
-        Angle_PID.Kp = GetItemValue(pid_Order, Ang_P_Order) / 10.0;
+        Angle_PID.Kp = GetItemValue(pid_Order, Ang_P_Order) / 10.0;//16
         Angle_PID.Kd = 0;
-        MOTOR_PID.Kp = GetItemValue(pid_Order, speed_P_Order) / 10.0;
+        MOTOR_PID.Kp = GetItemValue(pid_Order, speed_P_Order) / 10.0;//32
         MOTOR_PID.Ki = 0;
 //        rampPID.Kp = GetItemValue(pid_Order, rampP_Order)/10;
 //        rampPID.Ki = GetItemValue(pid_Order, rampI_Order)/10;
