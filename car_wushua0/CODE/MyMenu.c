@@ -1,20 +1,20 @@
 /*
  * MyMenu.c
  *
- *  Created on: 2022Äê1ÔÂ2ÈÕ
+ *  Created on: 2022å¹´1æœˆ2æ—¥
  *      Author: 11609
  */
 /*
  * Menu.c
  *
- *  Created on: 2021Äê12ÔÂ31ÈÕ
+ *  Created on: 2021å¹´12æœˆ31æ—¥
  *      Author: 11609
  */
 #include "MyMenu.h"
 
 uint8 Key_Change = 0;
 
-/*±äÁ¿³õÊ¼»¯-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+/*å˜é‡åˆå§‹åŒ–-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 MenuControl_InitTypeDef MCtrl =
     {
         Page_Order(1),
@@ -26,12 +26,12 @@ MenuControl_InitTypeDef MCtrl =
 
 Menu_InitTypeDef Page[Sum_Page] =
     {
-        /*Ìí¼Ó/É¾³ıÒ³Ãæ¶¼Òª¸Ä±ä*/
+        /*æ·»åŠ /åˆ é™¤é¡µé¢éƒ½è¦æ”¹å˜*/
         {
             Debug_Title,
             Debug_Order,
             Debug_Num_Item},
-        /*Ìí¼Ó/É¾³ıÒ³Ãæ¶¼Òª¸Ä±ä*/
+        /*æ·»åŠ /åˆ é™¤é¡µé¢éƒ½è¦æ”¹å˜*/
         {
             Start_Title,
             Start_Order,
@@ -51,16 +51,24 @@ Menu_InitTypeDef Page[Sum_Page] =
         {tarspeed_Title,
          tarspeed_Order,
          tarspeed_Num_Item},
-         {ForkOut_Title,
-          ForkOut_Order,
-          ForkOut_Num_Item},
-
+        {ForkOut_Title,
+         ForkOut_Order,
+         ForkOut_Num_Item},
+        {Belance_nei_PID_Title,
+         Belance_nei_PID_Order,
+         Belance_nei_PID_Num_Item},
+        {Belance_wai_PID_Title,
+         Belance_wai_PID_Order,
+         Belance_wai_PID_Num_Item},
+        {Belance_Sudu_PID_Title,
+         Belance_Sudu_PID_Order,
+         Belance_Sudu_PID_Num_Item},
 };
-/*±äÁ¿³õÊ¼»¯-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+/*å˜é‡åˆå§‹åŒ–-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
 
 /************************************************************************
-º¯ÊıÃû£ºDelayMs
-º¯Êı×÷ÓÃ£ºÑÓÊ±
+å‡½æ•°åï¼šDelayMs
+å‡½æ•°ä½œç”¨ï¼šå»¶æ—¶
 ************************************************************************/
 void DelayMs(int f_Ms)
 {
@@ -79,27 +87,30 @@ void DelayMs(int f_Ms)
 }
 
 /************************************************************************
-º¯ÊıÃû£º³õÊ¼»¯²Ëµ¥
-¹¦ÄÜ£º²Ëµ¥³õÊ¼»¯
-Ã¿¼ÓÒ»¸öÒ³Ãæ£¬¶àÒ»¸öÒ³Ãæ³õÊ¼»¯
+å‡½æ•°åï¼šåˆå§‹åŒ–èœå•
+åŠŸèƒ½ï¼šèœå•åˆå§‹åŒ–
+æ¯åŠ ä¸€ä¸ªé¡µé¢ï¼Œå¤šä¸€ä¸ªé¡µé¢åˆå§‹åŒ–
 ************************************************************************/
 void InitMenu(void)
 {
   KeyInit();
-  StartMenuInit(); // StartÒ³Ãæ³õÊ¼»¯
-  DebugMenuInit(); // InitÒ³Ãæ³õÊ¼»¯
+  StartMenuInit(); // Starté¡µé¢åˆå§‹åŒ–
+  DebugMenuInit(); // Inité¡µé¢åˆå§‹åŒ–
   RingMenuInit();
   pidMenuInit();
   ChooseMenuInit();
   yingsheMenuInit();
   tarspeedMenuInit();
   ForkOutMenuInit();
-  DisplayPage(MCtrl.ui8_NowPage); //³õÊ¼»¯Íê³ÉÏÔÊ¾Ê×Ò³
+  Belance_nei_PIDMenuInit ();
+  Belance_wai_PIDMenuInit ();
+  Belance_Sudu_PIDMenuInit ();
+  DisplayPage(MCtrl.ui8_NowPage); //åˆå§‹åŒ–å®Œæˆæ˜¾ç¤ºé¦–é¡µ
 }
 
 /************************************************************************
-º¯ÊıÃû£ºKeyInit
-¹¦ÄÜ£º°´¼ü³õÊ¼»¯
+å‡½æ•°åï¼šKeyInit
+åŠŸèƒ½ï¼šæŒ‰é”®åˆå§‹åŒ–
 ************************************************************************/
 void KeyInit(void)
 {
@@ -117,8 +128,8 @@ void KeyInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºKeyWork
-¹¦ÄÜ£º°´¼ü¹¤×÷
+å‡½æ•°åï¼šKeyWork
+åŠŸèƒ½ï¼šæŒ‰é”®å·¥ä½œ
 ************************************************************************/
 void KeyWork(void)
 {
@@ -140,8 +151,8 @@ void KeyWork(void)
   }
 
   while (UP)
-  {           //¼ıÍ·ÉÏÒÆ
-    UP_ADT(); //Ë¢Flash
+  {           //ç®­å¤´ä¸Šç§»
+    UP_ADT(); //åˆ·Flash
     ChangeMenuFlag(UP);
     if (ui16_DK > DELAY_KEY_FAST)
     {
@@ -154,8 +165,8 @@ void KeyWork(void)
   }
 
   while (DOWN)
-  {             //¼ıÍ·ÏÂÒÆ
-    DOWN_ADT(); //Ë¢Flash
+  {             //ç®­å¤´ä¸‹ç§»
+    DOWN_ADT(); //åˆ·Flash
     ChangeMenuFlag(!DOWN);
     if (ui16_DK > DELAY_KEY_FAST)
     {
@@ -166,13 +177,13 @@ void KeyWork(void)
       DelayMs(DELAY_KEY_FAST);
     }
   }
-  //·­Ò³
-  if (Key_Change == 0) //·­Ò³
+  //ç¿»é¡µ
+  if (Key_Change == 0) //ç¿»é¡µ
   {
     while (LEFT)
     {
-      LEFT_ADT();           //Ë¢Flash
-      ChangeMenuPage(LEFT); //·­Ò³
+      LEFT_ADT();           //åˆ·Flash
+      ChangeMenuPage(LEFT); //ç¿»é¡µ
       if (ui16_DK > DELAY_KEY_FAST)
       {
         DelayMs(ui16_DK -= DELAY_KEY_FAST);
@@ -185,7 +196,7 @@ void KeyWork(void)
 
     while (RIGHT)
     {
-      RIGHT_ADT(); //Ë¢FLASH
+      RIGHT_ADT(); //åˆ·FLASH
       ChangeMenuPage(!RIGHT);
       if (ui16_DK > DELAY_KEY_FAST)
       {
@@ -197,12 +208,12 @@ void KeyWork(void)
       }
     }
   }
-  //Êı¾İ¼Ó¼õ
-  else if (Key_Change == 1) //¸Ä±äÊı¾İ
+  //æ•°æ®åŠ å‡
+  else if (Key_Change == 1) //æ”¹å˜æ•°æ®
   {
     while (LEFT)
     {
-      SUB_ADT(); //Êı¾İ¼õ FlashÎ´¸Ä±ä
+      SUB_ADT(); //æ•°æ®å‡ Flashæœªæ”¹å˜
       if (ui16_DK > DELAY_KEY_FAST)
       {
         DelayMs(ui16_DK -= DELAY_KEY_FAST);
@@ -214,7 +225,7 @@ void KeyWork(void)
     }
 
     while (RIGHT)
-    { //Êı¾İ¼Ó
+    { //æ•°æ®åŠ 
       ADD_ADT();
       if (ui16_DK > DELAY_KEY_FAST)
       {
@@ -229,54 +240,54 @@ void KeyWork(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºADD°´¼ü¸½¼Ó¹¦ÄÜ
+å‡½æ•°åï¼šADDæŒ‰é”®é™„åŠ åŠŸèƒ½
 ************************************************************************/
 void ADD_ADT(void)
 {
-  //ÏµÍ³¼Ó
+  //ç³»ç»ŸåŠ 
   AddItemValue(MCtrl.ui8_NowPage, MCtrl.ui8_NowFlag);
   MCtrl.ui8_LastKey = KEY_SUB;
   MCtrl.ui8_ChangeValueFlag = 1;
 }
 
 /************************************************************************
-º¯ÊıÃû£ºSUB°´¼ü¸½¼Ó¹¦ÄÜ
+å‡½æ•°åï¼šSUBæŒ‰é”®é™„åŠ åŠŸèƒ½
 ************************************************************************/
 void SUB_ADT(void)
 {
-  //ÏµÍ³¼õ
+  //ç³»ç»Ÿå‡
   SubItemValue(MCtrl.ui8_NowPage, MCtrl.ui8_NowFlag);
   MCtrl.ui8_LastKey = KEY_SUB;
   MCtrl.ui8_ChangeValueFlag = 1;
 }
 /************************************************************************
-º¯ÊıÃû£ºUP°´¼ü¸½¼Ó¹¦ÄÜ
+å‡½æ•°åï¼šUPæŒ‰é”®é™„åŠ åŠŸèƒ½
 ************************************************************************/
 void UP_ADT(void)
 {
   MCtrl.ui8_LastKey = KEY_UP;
-  if (MCtrl.ui8_ChangeValueFlag) //ÊÇ·ñ¸Ä±ä
+  if (MCtrl.ui8_ChangeValueFlag) //æ˜¯å¦æ”¹å˜
   {
-    SaveData(MCtrl.ui8_NowPage, MCtrl.ui8_NowFlag); //´æ´¢FLASH
-    MCtrl.ui8_ChangeValueFlag = 0;                  //¸Ä±ä±êÖ¾Çå³ı
+    SaveData(MCtrl.ui8_NowPage, MCtrl.ui8_NowFlag); //å­˜å‚¨FLASH
+    MCtrl.ui8_ChangeValueFlag = 0;                  //æ”¹å˜æ ‡å¿—æ¸…é™¤
   }
 }
 
 /************************************************************************
-º¯ÊıÃû£ºDOWN°´¼ü¸½¼Ó¹¦ÄÜ
+å‡½æ•°åï¼šDOWNæŒ‰é”®é™„åŠ åŠŸèƒ½
 ************************************************************************/
 void DOWN_ADT(void)
 {
   MCtrl.ui8_LastKey = KEY_DOWN;
-  if (MCtrl.ui8_ChangeValueFlag) //ÊÇ·ñ¸Ä±ä
+  if (MCtrl.ui8_ChangeValueFlag) //æ˜¯å¦æ”¹å˜
   {
-    SaveData(MCtrl.ui8_NowPage, MCtrl.ui8_NowFlag); //´æ´¢FLASH
+    SaveData(MCtrl.ui8_NowPage, MCtrl.ui8_NowFlag); //å­˜å‚¨FLASH
     MCtrl.ui8_ChangeValueFlag = 0;
   }
 }
 
 /************************************************************************
-º¯ÊıÃû£ºLEFT°´¼ü¸½¼Ó¹¦ÄÜ
+å‡½æ•°åï¼šLEFTæŒ‰é”®é™„åŠ åŠŸèƒ½
 ************************************************************************/
 void LEFT_ADT(void)
 {
@@ -289,7 +300,7 @@ void LEFT_ADT(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºRIGHT°´¼ü¸½¼Ó¹¦ÄÜ
+å‡½æ•°åï¼šRIGHTæŒ‰é”®é™„åŠ åŠŸèƒ½
 ************************************************************************/
 void RIGHT_ADT(void)
 {
@@ -302,30 +313,30 @@ void RIGHT_ADT(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£º»ñÈ¡Öµ
-¹¦ÄÜ£º»ñÈ¡¶ÔÓ¦ÏîÄ¿Öµ
-²ÎÊı£ºui8_Page---Ò³ÃæÎ»ÖÃ(ÀıÈç£ºStart_Order)
-      ui8_Item---ÏîÄ¿Î»ÖÃ(ÀıÈç£ºStart_Delay_Order)
+å‡½æ•°åï¼šè·å–å€¼
+åŠŸèƒ½ï¼šè·å–å¯¹åº”é¡¹ç›®å€¼
+å‚æ•°ï¼šui8_Page---é¡µé¢ä½ç½®(ä¾‹å¦‚ï¼šStart_Order)
+      ui8_Item---é¡¹ç›®ä½ç½®(ä¾‹å¦‚ï¼šStart_Delay_Order)
 ************************************************************************/
 double GetItemValue(uint8 ui8_Page, uint8 ui8_Item)
 {
-  //¶ÁÈ¡±¶ÂÊ×ª»»
+  //è¯»å–å€ç‡è½¬æ¢
   return Page[ui8_Page].Option[ui8_Item].Item_Value *
          Page[ui8_Page].Option[ui8_Item].Item_Rate;
 }
 
 /************************************************************************
-º¯ÊıÃû£ºÉèÖÃÖµ
-¹¦ÄÜ£ºÉèÖÃ¶ÔÓ¦ÏîÄ¿Öµ
-²ÎÊı£ºui8_Page---Ò³ÃæÎ»ÖÃ(ÀıÈç£ºStart_Order)
-      ui8_Item---ÏîÄ¿Î»ÖÃ(ÀıÈç£ºStart_Delay_Order)
-      d_Value----ÏîÄ¿Öµ
+å‡½æ•°åï¼šè®¾ç½®å€¼
+åŠŸèƒ½ï¼šè®¾ç½®å¯¹åº”é¡¹ç›®å€¼
+å‚æ•°ï¼šui8_Page---é¡µé¢ä½ç½®(ä¾‹å¦‚ï¼šStart_Order)
+      ui8_Item---é¡¹ç›®ä½ç½®(ä¾‹å¦‚ï¼šStart_Delay_Order)
+      d_Value----é¡¹ç›®å€¼
 ************************************************************************/
 void SetItemValue(uint8 ui8_Page, uint8 ui8_Item, double d_Value)
 {
-  //Ğ´Èë±¶ÂÊ×ª»»
+  //å†™å…¥å€ç‡è½¬æ¢
   d_Value /= Page[ui8_Page].Option[ui8_Item].Item_Rate;
-  //ÅĞ¶¨·¶Î§
+  //åˆ¤å®šèŒƒå›´
   if (d_Value > Page[ui8_Page].Option[ui8_Item].Item_MaxValue)
   {
     Page[ui8_Page].Option[ui8_Item].Item_Value = Page[ui8_Page].Option[ui8_Item].Item_MaxValue;
@@ -342,13 +353,13 @@ void SetItemValue(uint8 ui8_Page, uint8 ui8_Item, double d_Value)
 }
 
 /************************************************************************
-º¯ÊıÃû£º¸Ä±ä±êÖ¾
-¹¦ÄÜ£ºÑ¡Ôñ¸Ä±ä±êÖ¾
-²ÎÊı£ºui8_UpDown---±êÖ¾ÒÆ¶¯·½Ïò
+å‡½æ•°åï¼šæ”¹å˜æ ‡å¿—
+åŠŸèƒ½ï¼šé€‰æ‹©æ”¹å˜æ ‡å¿—
+å‚æ•°ï¼šui8_UpDown---æ ‡å¿—ç§»åŠ¨æ–¹å‘
 ************************************************************************/
 void ChangeMenuFlag(uint8 ui8_UpDown)
 {
-  //¼ÇÂ¼µ±Ç°Ñ¡ÖĞÏî
+  //è®°å½•å½“å‰é€‰ä¸­é¡¹
 
   if (ui8_UpDown)
   {
@@ -363,18 +374,18 @@ void ChangeMenuFlag(uint8 ui8_UpDown)
 
   MCtrl.ui8_NowDisPage = MCtrl.ui8_NowFlag / 7 + 1;
 
-  //Ë¢ĞÂÏÔÊ¾
+  //åˆ·æ–°æ˜¾ç¤º
   DisplayPage(MCtrl.ui8_NowPage);
 }
 
 /************************************************************************
-º¯ÊıÃû£º¸Ä±äÒ³Ãæ
-¹¦ÄÜ£º¸Ä±äÒ³Ãæ²ÎÊı
-²ÎÊı£ºui8_LeftRight---ÇĞ»»Ò³Ãæ·½Ïò
+å‡½æ•°åï¼šæ”¹å˜é¡µé¢
+åŠŸèƒ½ï¼šæ”¹å˜é¡µé¢å‚æ•°
+å‚æ•°ï¼šui8_LeftRight---åˆ‡æ¢é¡µé¢æ–¹å‘
 ************************************************************************/
 void ChangeMenuPage(uint8 ui8_LeftRight)
 {
-  //¼ÇÂ¼µ±Ç°Ñ¡ÖĞÒ³
+  //è®°å½•å½“å‰é€‰ä¸­é¡µ
   if (ui8_LeftRight)
   {
     MCtrl.ui8_NowPage = MCtrl.ui8_NowPage > Page_Order(Min_Page)
@@ -393,26 +404,26 @@ void ChangeMenuPage(uint8 ui8_LeftRight)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºÏÔÊ¾Ò³Ãæ
-¹¦ÄÜ£ºÏÔÊ¾µ±Ç°Ò³Ãæ
-²ÎÊı£ºui8_Page---Ò³ÃæĞòºÅ
+å‡½æ•°åï¼šæ˜¾ç¤ºé¡µé¢
+åŠŸèƒ½ï¼šæ˜¾ç¤ºå½“å‰é¡µé¢
+å‚æ•°ï¼šui8_Page---é¡µé¢åºå·
 ************************************************************************/
 void DisplayPage(uint8 ui8_Page)
 {
-  //µ÷ÓÃÏÔÊ¾Ê±¼ÇÂ¼µ±Ç°Ñ¡ÖĞÒ³
+  //è°ƒç”¨æ˜¾ç¤ºæ—¶è®°å½•å½“å‰é€‰ä¸­é¡µ
   MCtrl.ui8_NowPage = ui8_Page;
   DisplayMenu(Page[ui8_Page]);
 }
 
 /************************************************************************
-º¯ÊıÃû£º¼ÓÖµ
-¹¦ÄÜ£º¸ù¾İµ±Ç°±êÖ¾£¬Ñ¡ÔñÔö¼ÓÖµµÄ½á¹¹Ìå
-²ÎÊı£ºui8_Page---Ò³ÃæĞòºÅ
-     ui8_Item---ÌõÄ¿ĞòºÅ
+å‡½æ•°åï¼šåŠ å€¼
+åŠŸèƒ½ï¼šæ ¹æ®å½“å‰æ ‡å¿—ï¼Œé€‰æ‹©å¢åŠ å€¼çš„ç»“æ„ä½“
+å‚æ•°ï¼šui8_Page---é¡µé¢åºå·
+     ui8_Item---æ¡ç›®åºå·
 ************************************************************************/
 void AddItemValue(uint8 ui8_Page, uint8 ui8_Item)
 {
-  //·¶Î§ÄÚÑ­»·¼Ó
+  //èŒƒå›´å†…å¾ªç¯åŠ 
   int16 Value = Page[ui8_Page].Option[ui8_Item].Item_Value + 1;
   if (Value <= Page[ui8_Page].Option[ui8_Item].Item_MaxValue)
   {
@@ -430,13 +441,13 @@ void AddItemValue(uint8 ui8_Page, uint8 ui8_Item)
 }
 
 /************************************************************************
-º¯ÊıÃû£º¼õÖµ
-¹¦ÄÜ£º¸ù¾İµ±Ç°±êÖ¾£¬Ñ¡Ôñ¼õÉÙÖµµÄ½á¹¹Ìå
-²ÎÊı£ºui8_Page---Ò³ÃæĞòºÅ
-      ui8_Item---ÌõÄ¿ĞòºÅ
+å‡½æ•°åï¼šå‡å€¼
+åŠŸèƒ½ï¼šæ ¹æ®å½“å‰æ ‡å¿—ï¼Œé€‰æ‹©å‡å°‘å€¼çš„ç»“æ„ä½“
+å‚æ•°ï¼šui8_Page---é¡µé¢åºå·
+      ui8_Item---æ¡ç›®åºå·
 ************************************************************************/
 void SubItemValue(uint8 ui8_Page, uint8 ui8_Item)
-{ //·¶Î§ÄÚÑ­»·¼õ
+{ //èŒƒå›´å†…å¾ªç¯å‡
   int16 Value = Page[ui8_Page].Option[ui8_Item].Item_Value - 1;
   if (Value >= Page[ui8_Page].Option[ui8_Item].Item_MinValue)
   {
@@ -454,68 +465,68 @@ void SubItemValue(uint8 ui8_Page, uint8 ui8_Item)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºÏÔÊ¾²Ëµ¥
-¹¦ÄÜ£ºÏÔÊ¾¶ÔÓ¦²Ëµ¥²ÎÊı
-²ÎÊı£ºM---ÏîÄ¿½á¹¹Í¼
+å‡½æ•°åï¼šæ˜¾ç¤ºèœå•
+åŠŸèƒ½ï¼šæ˜¾ç¤ºå¯¹åº”èœå•å‚æ•°
+å‚æ•°ï¼šM---é¡¹ç›®ç»“æ„å›¾
 ************************************************************************/
 void DisplayMenu(Menu_InitTypeDef M)
 {
 
   uint8 ui8_MaxItem = (MCtrl.ui8_NowDisPage * 6) > M.Page_Num_Item ? M.Page_Num_Item : (MCtrl.ui8_NowDisPage * 6);
 
-  //ÇåÆÁ
+  //æ¸…å±
   oled_fill(0);
-  //ÏÔÊ¾Ò³Ãæ±êÌâºÍ·Ö¸îÏß
+  //æ˜¾ç¤ºé¡µé¢æ ‡é¢˜å’Œåˆ†å‰²çº¿
   oled_p8x16str(0, 0, M.Page_Title);
   // oled_p6x8str(40, 0, "|");
 
   for (uint8 ui8_I = (MCtrl.ui8_NowDisPage - 1) * 6 + 1; ui8_I <= ui8_MaxItem; ui8_I++)
   {
-    //ÏÔÊ¾ÏîÄ¿±êÌâ
+    //æ˜¾ç¤ºé¡¹ç›®æ ‡é¢˜
     oled_p6x8str(12, M.Option[ui8_I].Item_Order + 1 - (MCtrl.ui8_NowDisPage - 1) * 6,
                  M.Option[ui8_I].Item_Title);
-    //ÏÔÊ¾ÏîÄ¿Öµ
+    //æ˜¾ç¤ºé¡¹ç›®å€¼
     DisplayItemValue(M.Option[ui8_I].Item_Value, M.Option[ui8_I].Item_Order + 1);
   }
 
-  //ÏÔÊ¾Ñ¡ÖĞ±êÖ¾
+  //æ˜¾ç¤ºé€‰ä¸­æ ‡å¿—
   DisplayItemFlag();
-  //ÏÔÊ¾×´Ì¬±êÖ¾
+  //æ˜¾ç¤ºçŠ¶æ€æ ‡å¿—
   DisplayIcon();
 }
 
 /************************************************************************
-º¯ÊıÃû£ºÏÔÊ¾Í¼±ê
-¹¦ÄÜ£ºÏÔÊ¾×´Ì¬
+å‡½æ•°åï¼šæ˜¾ç¤ºå›¾æ ‡
+åŠŸèƒ½ï¼šæ˜¾ç¤ºçŠ¶æ€
 ************************************************************************/
 void DisplayIcon(void)
 {
 
-  //ÏÔÊ¾ÈÕÆÚ°æ±¾ºÅ
+  //æ˜¾ç¤ºæ—¥æœŸç‰ˆæœ¬å·
   oled_p6x8str(48, 1, IC_VERSION);
-  //°´Å¥ÇĞ»»
+  //æŒ‰é’®åˆ‡æ¢
   if (Key_Change == 1)
   {
-    oled_p6x8str(48, 0, ValueChange);
+    oled_p6x8str(100, 0, ValueChange);
   }
   else
   {
-    oled_p6x8str(48, 0, PageChange);
+    oled_p6x8str(100, 0, PageChange);
   }
-  oled_p6x8str(60, 0, " ");
+  oled_p6x8str(112, 0, " ");
 }
 
 /************************************************************************
-º¯ÊıÃû£ºÏÔÊ¾Öµ
-¹¦ÄÜ£ºÏÔÊ¾¶ÔÓ¦ÊıÖµ
-²ÎÊı£ºi16_Value---Öµ
-      ui8_Row---ĞĞ×ø±ê
+å‡½æ•°åï¼šæ˜¾ç¤ºå€¼
+åŠŸèƒ½ï¼šæ˜¾ç¤ºå¯¹åº”æ•°å€¼
+å‚æ•°ï¼ši16_Value---å€¼
+      ui8_Row---è¡Œåæ ‡
 ************************************************************************/
 void DisplayItemValue(int16 i16_Value, uint8 ui8_Row)
 {
   uint8 ui8_Fu = 0;
 
-  //¼ÇÂ¼Õı¸º
+  //è®°å½•æ­£è´Ÿ
   if (i16_Value < 0)
   {
     i16_Value = -i16_Value;
@@ -529,7 +540,7 @@ void DisplayItemValue(int16 i16_Value, uint8 ui8_Row)
   uint8 ui8_Num[2] = " ";
   uint8 ui8_Dis = 127;
 
-  //´ÓÓÒµ½×óÏÔÊ¾
+  //ä»å³åˆ°å·¦æ˜¾ç¤º
   do
   {
     *ui8_Num = i16_Value % 10 + 48;
@@ -543,8 +554,8 @@ void DisplayItemValue(int16 i16_Value, uint8 ui8_Row)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºÏÔÊ¾±êÖ¾
-¹¦ÄÜ£ºÏÔÊ¾²¢Çå³ı±êÖ¾
+å‡½æ•°åï¼šæ˜¾ç¤ºæ ‡å¿—
+åŠŸèƒ½ï¼šæ˜¾ç¤ºå¹¶æ¸…é™¤æ ‡å¿—
 ************************************************************************/
 void DisplayItemFlag(void)
 {
@@ -552,8 +563,8 @@ void DisplayItemFlag(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºInitÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯³õÊ¼»¯Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼šInité¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–åˆå§‹åŒ–é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void DebugMenuInit(void)
 {
@@ -620,8 +631,8 @@ void DebugMenuInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºStartÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯¿ªÊ¼Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼šStarté¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–å¼€å§‹é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void StartMenuInit(void)
 {
@@ -687,8 +698,8 @@ void StartMenuInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºpidÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯¿ªÊ¼Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼špidé¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–å¼€å§‹é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void pidMenuInit(void)
 {
@@ -751,8 +762,8 @@ void pidMenuInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºRingÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯¿ªÊ¼Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼šRingé¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–å¼€å§‹é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void RingMenuInit(void)
 {
@@ -819,8 +830,8 @@ void RingMenuInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºChooseÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯¿ªÊ¼Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼šChooseé¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–å¼€å§‹é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void ChooseMenuInit(void)
 {
@@ -886,8 +897,8 @@ void ChooseMenuInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºyingsheÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯¿ªÊ¼Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼šyingsheé¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–å¼€å§‹é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void yingsheMenuInit(void)
 {
@@ -953,8 +964,8 @@ void yingsheMenuInit(void)
 }
 
 /************************************************************************
-º¯ÊıÃû£ºtarspeedMenuInitÒ³Ãæ³õÊ¼»¯
-¹¦ÄÜ£º³õÊ¼»¯¿ªÊ¼Ò³Ãæ½á¹¹Ìå
+å‡½æ•°åï¼štarspeedMenuInité¡µé¢åˆå§‹åŒ–
+åŠŸèƒ½ï¼šåˆå§‹åŒ–å¼€å§‹é¡µé¢ç»“æ„ä½“
 ************************************************************************/
 void tarspeedMenuInit(void)
 {
@@ -1083,10 +1094,108 @@ void ForkOutMenuInit()
     Page[ForkOut_Order].Option[I_86_87_Order] = Option_I_86_87;
 }
 
+void Belance_nei_PIDMenuInit()
+{
+    Option_InitTypeDef Option_Belance_nei_PID_P = {
+            Belance_nei_PID_P_Title,
+            Belance_nei_PID_P_Order,
+            Belance_nei_PID_P_Value,
+            Belance_nei_PID_P_MaxValue,
+            Belance_nei_PID_P_MinValue,
+            Belance_nei_PID_P_Rate,
+            Belance_nei_PID_P_Addr};
+    Page[Belance_nei_PID_Order].Option[Belance_nei_PID_P_Order] = Option_Belance_nei_PID_P;
+
+    Option_InitTypeDef Option_Belance_nei_PID_I = {
+            Belance_nei_PID_I_Title,
+            Belance_nei_PID_I_Order,
+            Belance_nei_PID_I_Value,
+            Belance_nei_PID_I_MaxValue,
+            Belance_nei_PID_I_MinValue,
+            Belance_nei_PID_I_Rate,
+            Belance_nei_PID_I_Addr};
+    Page[Belance_nei_PID_Order].Option[Belance_nei_PID_I_Order] = Option_Belance_nei_PID_I;
+
+    Option_InitTypeDef Option_Belance_nei_PID_D = {
+            Belance_nei_PID_D_Title,
+            Belance_nei_PID_d_Order,
+            Belance_nei_PID_D_Value,
+            Belance_nei_PID_D_MaxValue,
+            Belance_nei_PID_D_MinValue,
+            Belance_nei_PID_D_Rate,
+            Belance_nei_PID_D_Addr};
+    Page[Belance_nei_PID_Order].Option[Belance_nei_PID_D_Order] = Option_Belance_nei_PID_D;
+}
+
+void Belance_wai_PIDMenuInit()
+{
+    Option_InitTypeDef Option_Belance_wai_PID_P = {
+            Belance_wai_PID_P_Title,
+            Belance_wai_PID_P_Order,
+            Belance_wai_PID_P_Value,
+            Belance_wai_PID_P_MaxValue,
+            Belance_wai_PID_P_MinValue,
+            Belance_wai_PID_P_Rate,
+            Belance_wai_PID_P_Addr};
+    Page[Belance_wai_PID_Order].Option[Belance_wai_PID_P_Order] = Option_Belance_wai_PID_P;
+
+    Option_InitTypeDef Option_Belance_wai_PID_I = {
+            Belance_wai_PID_I_Title,
+            Belance_wai_PID_I_Order,
+            Belance_wai_PID_I_Value,
+            Belance_wai_PID_I_MaxValue,
+            Belance_wai_PID_I_MinValue,
+            Belance_wai_PID_I_Rate,
+            Belance_wai_PID_I_Addr};
+    Page[Belance_wai_PID_Order].Option[Belance_wai_PID_I_Order] = Option_Belance_wai_PID_I;
+
+    Option_InitTypeDef Option_Belance_wai_PID_D = {
+            Belance_wai_PID_D_Title,
+            Belance_wai_PID_d_Order,
+            Belance_wai_PID_D_Value,
+            Belance_wai_PID_D_MaxValue,
+            Belance_wai_PID_D_MinValue,
+            Belance_wai_PID_D_Rate,
+            Belance_wai_PID_D_Addr};
+    Page[Belance_wai_PID_Order].Option[Belance_wai_PID_D_Order] = Option_Belance_wai_PID_D;
+}
+
+void Belance_Sudu_PIDMenuInit()
+{
+    Option_InitTypeDef Option_Belance_Sudu_PID_P = {
+            Belance_Sudu_PID_P_Title,
+            Belance_Sudu_PID_P_Order,
+            Belance_Sudu_PID_P_Value,
+            Belance_Sudu_PID_P_MaxValue,
+            Belance_Sudu_PID_P_MinValue,
+            Belance_Sudu_PID_P_Rate,
+            Belance_Sudu_PID_P_Addr};
+    Page[Belance_Sudu_PID_Order].Option[Belance_Sudu_PID_P_Order] = Option_Belance_Sudu_PID_P;
+
+    Option_InitTypeDef Option_Belance_Sudu_PID_I = {
+            Belance_Sudu_PID_I_Title,
+            Belance_Sudu_PID_I_Order,
+            Belance_Sudu_PID_I_Value,
+            Belance_Sudu_PID_I_MaxValue,
+            Belance_Sudu_PID_I_MinValue,
+            Belance_Sudu_PID_I_Rate,
+            Belance_Sudu_PID_I_Addr};
+    Page[Belance_Sudu_PID_Order].Option[Belance_Sudu_PID_I_Order] = Option_Belance_Sudu_PID_I;
+
+    Option_InitTypeDef Option_Belance_Sudu_PID_D = {
+            Belance_Sudu_PID_D_Title,
+            Belance_Sudu_PID_d_Order,
+            Belance_Sudu_PID_D_Value,
+            Belance_Sudu_PID_D_MaxValue,
+            Belance_Sudu_PID_D_MinValue,
+            Belance_Sudu_PID_D_Rate,
+            Belance_Sudu_PID_D_Addr};
+    Page[Belance_Sudu_PID_Order].Option[Belance_Sudu_PID_D_Order] = Option_Belance_Sudu_PID_D;
+}
 /************************************************************************
-º¯ÊıÃû£º´æ´¢Êı¾İ
-²ÎÊı£ºui8_Page---Ò³ÃæĞòºÅ
-ui8_Item---ÌõÄ¿ĞòºÅ
+å‡½æ•°åï¼šå­˜å‚¨æ•°æ®
+å‚æ•°ï¼šui8_Page---é¡µé¢åºå·
+ui8_Item---æ¡ç›®åºå·
 ************************************************************************/
 uint8 status = 0;
 void SaveData(uint8 ui8_Page, uint8 ui8_Item)
@@ -1097,7 +1206,7 @@ void SaveData(uint8 ui8_Page, uint8 ui8_Item)
   for (int i = 0; i < Page[ui8_Page].Page_Num_Item; i++)
     write_buf[i] = Page[ui8_Page].Option[i + 1].Item_Value;
 
-  eeprom_erase_sector(ui8_Page); //²Á³ıÉÈÇø£¬Èç¹ûÉÈÇøÒÑ¾­ÓĞÊı¾İÔò±ØĞë²Á³ıÉÈÇøÖ®ºó²ÅÄÜÔÙ´ÎĞ´ÈëĞÂµÄÊı¾İ
+  eeprom_erase_sector(ui8_Page); //æ“¦é™¤æ‰‡åŒºï¼Œå¦‚æœæ‰‡åŒºå·²ç»æœ‰æ•°æ®åˆ™å¿…é¡»æ“¦é™¤æ‰‡åŒºä¹‹åæ‰èƒ½å†æ¬¡å†™å…¥æ–°çš„æ•°æ®
 
   for (int i = 0; i < Page[ui8_Page].Page_Num_Item; i++)
     eeprom_page_program(ui8_Page, i, &write_buf[i]);

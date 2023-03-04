@@ -13,8 +13,8 @@
 
 
 //页面总数
-#define Sum_Page        8                       //页面总数量
-#define Max_Page        8                       //页面最大序号
+#define Sum_Page       11                       //页面总数量
+#define Max_Page       11                       //页面最大序号
 #define Min_Page        1                       //页面最小序号
 /*
 //有刷单车
@@ -70,7 +70,99 @@
 //每个扇区有1024页 一页大小8bit
 #define i32_FlashReadInt32(Order,Addr)  ReadFlash(Order, Addr)
 
+/*Belance_nei_PIDBegein*************************************************************************/
+#define Belance_nei_PID_Title                      "Nei_PID"
+#define Belance_nei_PID_Order                      Page_Order(9)
+#define Belance_nei_PID_Num_Item                   3
 
+#define Belance_nei_PID_P_Title                 "P:"
+#define Belance_nei_PID_P_Order                  Item_Order(1)
+#define Belance_nei_PID_P_Value                  i32_FlashReadInt32(Belance_nei_PID_Order,Belance_nei_PID_P_Addr)
+#define Belance_nei_PID_P_MaxValue               500
+#define Belance_nei_PID_P_MinValue               0
+#define Belance_nei_PID_P_Rate                   1
+#define Belance_nei_PID_P_Addr                   FLASH_ADDR(0)
+
+
+#define Belance_nei_PID_I_Title                 "I:"
+#define Belance_nei_PID_I_Order                  Item_Order(2)
+#define Belance_nei_PID_I_Value                  i32_FlashReadInt32(Belance_nei_PID_Order,Belance_nei_PID_I_Addr)
+#define Belance_nei_PID_I_MaxValue               500
+#define Belance_nei_PID_I_MinValue               0
+#define Belance_nei_PID_I_Rate                   1
+#define Belance_nei_PID_I_Addr                   FLASH_ADDR(1)
+
+#define Belance_nei_PID_D_Title                 "D:"
+#define Belance_nei_PID_D_Order                  Item_Order(3)
+#define Belance_nei_PID_D_Value                  i32_FlashReadInt32(Belance_nei_PID_Order,Belance_nei_PID_P_Addr)
+#define Belance_nei_PID_D_MaxValue               500
+#define Belance_nei_PID_D_MinValue               0
+#define Belance_nei_PID_D_Rate                   1
+#define Belance_nei_PID_D_Addr                   FLASH_ADDR(2)
+/*Belance_nei_PID_End*************************************************************************/
+void Belance_nei_PIDMenuInit (void);
+
+/*Belance_wai_PIDBegein*************************************************************************/
+#define Belance_wai_PID_Title                      "Wai_PID"
+#define Belance_wai_PID_Order                      Page_Order(10)
+#define Belance_wai_PID_Num_Item                   3
+
+#define Belance_wai_PID_P_Title                 "P:"
+#define Belance_wai_PID_P_Order                  Item_Order(1)
+#define Belance_wai_PID_P_Value                  i32_FlashReadInt32(Belance_wai_PID_Order,Belance_wai_PID_P_Addr)
+#define Belance_wai_PID_P_MaxValue               500
+#define Belance_wai_PID_P_MinValue               0
+#define Belance_wai_PID_P_Rate                   1
+#define Belance_wai_PID_P_Addr                   FLASH_ADDR(0)
+
+#define Belance_wai_PID_I_Title                 "I:"
+#define Belance_wai_PID_I_Order                  Item_Order(2)
+#define Belance_wai_PID_I_Value                  i32_FlashReadInt32(Belance_wai_PID_Order,Belance_wai_PID_I_Addr)
+#define Belance_wai_PID_I_MaxValue               500
+#define Belance_wai_PID_I_MinValue               0
+#define Belance_wai_PID_I_Rate                   1
+#define Belance_wai_PID_I_Addr                   FLASH_ADDR(1)
+
+#define Belance_wai_PID_D_Title                 "D:"
+#define Belance_wai_PID_D_Order                  Item_Order(3)
+#define Belance_wai_PID_D_Value                  i32_FlashReadInt32(Belance_wai_PID_Order,Belance_wai_PID_D_Addr)
+#define Belance_wai_PID_D_MaxValue               500
+#define Belance_wai_PID_D_MinValue               0
+#define Belance_wai_PID_D_Rate                   1
+#define Belance_wai_PID_D_Addr                   FLASH_ADDR(2)
+/*Belance_wai_PID_End*************************************************************************/
+void Belance_wai_PIDMenuInit (void);
+
+/*Belance_Sudu_PIDBegein*************************************************************************/
+#define Belance_Sudu_PID_Title                      "Sudu_PID"
+#define Belance_Sudu_PID_Order                      Page_Order(11)
+#define Belance_Sudu_PID_Num_Item                   3
+
+#define Belance_Sudu_PID_P_Title                 "P:"
+#define Belance_Sudu_PID_P_Order                  Item_Order(1)
+#define Belance_Sudu_PID_P_Value                  i32_FlashReadInt32(Belance_Sudu_PID_Order,Belance_Sudu_PID_P_Addr)
+#define Belance_Sudu_PID_P_MaxValue               500
+#define Belance_Sudu_PID_P_MinValue               0
+#define Belance_Sudu_PID_P_Rate                   1
+#define Belance_Sudu_PID_P_Addr                   FLASH_ADDR(0)
+
+#define Belance_Sudu_PID_I_Title                 "I:"
+#define Belance_Sudu_PID_I_Order                  Item_Order(2)
+#define Belance_Sudu_PID_I_Value                  i32_FlashReadInt32(Belance_Sudu_PID_Order,Belance_Sudu_PID_I_Addr)
+#define Belance_Sudu_PID_I_MaxValue               500
+#define Belance_Sudu_PID_I_MinValue               0
+#define Belance_Sudu_PID_I_Rate                   1
+#define Belance_Sudu_PID_I_Addr                   FLASH_ADDR(1)
+
+#define Belance_Sudu_PID_D_Title                 "D:"
+#define Belance_Sudu_PID_D_Order                  Item_Order(3)
+#define Belance_Sudu_PID_D_Value                  i32_FlashReadInt32(Belance_Sudu_PID_Order,Belance_Sudu_PID_D_Addr)
+#define Belance_Sudu_PID_D_MaxValue               500
+#define Belance_Sudu_PID_D_MinValue               0
+#define Belance_Sudu_PID_D_Rate                   1
+#define Belance_Sudu_PID_D_Addr                   FLASH_ADDR(2)
+/*Belance_Sudu_PID_End*************************************************************************/
+void Belance_Sudu_PIDMenuInit (void);
 
 /*DebugBeg*************************************************************************/
 #define Debug_Title                      "Debug"
